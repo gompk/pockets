@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "pockets",
+  "version": "${version}",
+  "name": "Pockets",
+  "description": "A mod that adds extra inventory space",
+  "authors": [
+    "Me!"
+  ],
+  "license": "MIT",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "net.gompk.pockets.Pockets"
+    ]
+  },
+  "mixins": [
+    "pockets.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.17.2",
+    "minecraft": "~1.21.8",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}
