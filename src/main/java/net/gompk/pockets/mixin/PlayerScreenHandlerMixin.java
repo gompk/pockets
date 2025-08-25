@@ -16,7 +16,7 @@ public abstract class PlayerScreenHandlerMixin {
 
     private boolean addingExtraSlots = false;
 
-    // Intercept hotbar slot additions and move them down
+    // Intercept hotbar slot additions and move them down by 18 pixels
     @Redirect(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/screen/PlayerScreenHandler;addSlot(Lnet/minecraft/screen/slot/Slot;)Lnet/minecraft/screen/slot/Slot;"))
     private Slot redirectAddSlot(PlayerScreenHandler instance, Slot slot) {
         if (!addingExtraSlots && slot.inventory instanceof PlayerInventory && slot.getIndex() < 9) {
@@ -30,18 +30,24 @@ public abstract class PlayerScreenHandlerMixin {
     @Inject(method = "<init>", at = @At("TAIL"))
     private void addExtraInventoryRows(PlayerInventory inventory, boolean onServer, PlayerEntity owner, CallbackInfo ci) {
         addingExtraSlots = true;
-        Pockets.LOGGER.info("POCKETS DEBUG: Adding extra inventory row at Y position 76...");
+        Pockets.LOGGER.info("POCKETS DEBUG: Adding extra inventory row...");
 
-        // Add our extra row at Y: 76 (where hotbar used to be)
-        int baseIndex = 36;
-        int y = 76;
+        // The vanilla inventory has:
+        // Main inventory rows at Y: 18, 36, 54 (slots 9-35)
+        // Hotbar at Y: 76 (slots 0-8) - now moved to Y: 94
+        // We want to add our row at Y: 72 (between main inventory and hotbar)
+
+        // Use indices 43-51 for our extra slots (after all vanilla slots including body slots 41-42)
+        int baseIndex = 43;
+        int y = 169; // Between main inventory and hotbar
 
         for (int x = 0; x < 9; x++) {
             Slot newSlot = new Slot(inventory, baseIndex + x, 8 + x * 18, y);
             ((ScreenHandlerAccessor)this).invokeAddSlot(newSlot);
+            Pockets.LOGGER.info("POCKETS DEBUG: Added slot {} at ({}, {})", baseIndex + x, 8 + x * 18, y);
         }
 
         addingExtraSlots = false;
-        Pockets.LOGGER.info("POCKETS DEBUG: Successfully added extra row!");
+        Pockets.LOGGER.info("POCKETS DEBUG: Extra row added at Y: {}, hotbar moved to Y: {}", y, 94);
     }
 }

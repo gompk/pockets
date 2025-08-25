@@ -12,11 +12,8 @@ public class InventoryScreenMixin {
     @Inject(method = "<init>", at = @At("TAIL"))
     private void onInit(CallbackInfo ci) {
         InventoryScreenAccessor accessor = (InventoryScreenAccessor) this;
-        int oldHeight = accessor.getBackgroundHeight();
-
-        // Increase background height to accommodate the extra row
-        accessor.setBackgroundHeight(oldHeight + 18);
-
-        Pockets.LOGGER.info("POCKETS DEBUG: GUI background height: {} -> {}", oldHeight, accessor.getBackgroundHeight());
+        accessor.setBackgroundHeight(accessor.getBackgroundHeight() + 38);
+        // Remove the background height modification to fix recipe book positioning
+        Pockets.LOGGER.info("POCKETS DEBUG: InventoryScreen initialized without background height changes");
     }
 }

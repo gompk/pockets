@@ -1,3 +1,5 @@
+// Modifies PlayerInventory class to increase the main inventory size from 36 to 45 slots.
+
 package net.gompk.pockets.mixin;
 
 import net.gompk.pockets.Pockets;
@@ -11,6 +13,6 @@ public class PlayerInventoryMixin {
     @ModifyConstant(method = "<init>", constant = @Constant(intValue = 36))
     private int modifyMainSize(int original) {
         Pockets.LOGGER.info("POCKETS DEBUG: PlayerInventory size modified from {} to 45", original);
-        return 45; // your new size
+        return 54; // your new size
     }
 }

@@ -4,10 +4,11 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "PlayerInventoryMixin",
-    "PlayerScreenHandlerMixinold",
+    //"PlayerScreenHandlerMixinold",
     "InventoryScreenMixin",
     "InventoryScreenAccessor",
-    "ScreenHandlerAccessor"
+    "ScreenHandlerAccessor",
+    "PlayerScreenHandlerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
