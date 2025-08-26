@@ -16,13 +16,19 @@ public abstract class PlayerScreenHandlerMixin {
 
     private boolean addingExtraSlots = false;
 
-    // Intercept hotbar slot additions and move them down by 18 pixels
+    // Move hotbar slots down by 18 pixels to make room for extra inventory row
     @Redirect(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/screen/PlayerScreenHandler;addSlot(Lnet/minecraft/screen/slot/Slot;)Lnet/minecraft/screen/slot/Slot;"))
     private Slot redirectAddSlot(PlayerScreenHandler instance, Slot slot) {
-        if (!addingExtraSlots && slot.inventory instanceof PlayerInventory && slot.getIndex() < 9) {
-            // This is a hotbar slot (indices 0-8), move it down by 18 pixels
-            Pockets.LOGGER.info("POCKETS DEBUG: Moving hotbar slot {} from Y:{} to Y:{}", slot.getIndex(), slot.y, slot.y + 18);
-            slot = new Slot(slot.inventory, slot.getIndex(), slot.x, slot.y + 18);
+        if (!addingExtraSlots && slot.inventory instanceof PlayerInventory) {
+            int index = slot.getIndex();
+
+            // Move hotbar slots (indices 0-8) down by 18 pixels
+            if (index >= 0 && index <= 8) {
+                Pockets.LOGGER.info("POCKETS DEBUG: Moving hotbar slot {} from Y:{} to Y:{}", index, slot.y, slot.y + 18);
+                slot = new Slot(slot.inventory, index, slot.x, slot.y + 18);
+            }
+            // Keep main inventory slots (9-35) in their original positions
+            // Keep armor slots (36-39) and offhand (40) in their original positions
         }
         return ((ScreenHandlerAccessor)instance).invokeAddSlot(slot);
     }
@@ -32,22 +38,20 @@ public abstract class PlayerScreenHandlerMixin {
         addingExtraSlots = true;
         Pockets.LOGGER.info("POCKETS DEBUG: Adding extra inventory row...");
 
-        // The vanilla inventory has:
-        // Main inventory rows at Y: 18, 36, 54 (slots 9-35)
-        // Hotbar at Y: 76 (slots 0-8) - now moved to Y: 94
-        // We want to add our row at Y: 72 (between main inventory and hotbar)
+        Pockets.extraInventoryRows = 1;
 
-        // Use indices 43-51 for our extra slots (after all vanilla slots including body slots 41-42)
-        int baseIndex = 43;
-        int y = 169; // Between main inventory and hotbar
+        // Add extra slots between main inventory (Y: 54) and hotbar (now at Y: 94)
+        // Position them at Y: 72 to be visually between the main inventory and hotbar
+        int startIndex = 45; // Use indices 45-53 to avoid conflicts with armor/offhand slots
+        int y = 72;
 
         for (int x = 0; x < 9; x++) {
-            Slot newSlot = new Slot(inventory, baseIndex + x, 8 + x * 18, y);
+            Slot newSlot = new Slot(inventory, startIndex + x, 8 + x * 18, y);
             ((ScreenHandlerAccessor)this).invokeAddSlot(newSlot);
-            Pockets.LOGGER.info("POCKETS DEBUG: Added slot {} at ({}, {})", baseIndex + x, 8 + x * 18, y);
+            Pockets.LOGGER.info("POCKETS DEBUG: Added slot {} at ({}, {})", startIndex + x, 8 + x * 18, y);
         }
 
         addingExtraSlots = false;
-        Pockets.LOGGER.info("POCKETS DEBUG: Extra row added at Y: {}, hotbar moved to Y: {}", y, 94);
+        Pockets.LOGGER.info("POCKETS DEBUG: Extra row added successfully");
     }
 }

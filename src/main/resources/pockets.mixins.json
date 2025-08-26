@@ -4,11 +4,17 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "PlayerInventoryMixin",
-    //"PlayerScreenHandlerMixinold",
     "InventoryScreenMixin",
     "InventoryScreenAccessor",
     "ScreenHandlerAccessor",
-    "PlayerScreenHandlerMixin"
+    "PlayerScreenHandlerMixin",
+    "FixRecipeBookMixin",
+    "SlotAccessorMixin",
+    "HandledScreenAccessor",
+    "ArmorSlotProtectionMixin",
+    "ItemPickupDiagnosticMixin",
+    "InventoryInsertionBlockerMixin"
+    //"HotbarPositionFixMixin"
   ],
   "injectors": {
     "defaultRequire": 1
