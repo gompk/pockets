@@ -163,8 +163,8 @@ public abstract class PlayerScreenHandlerMixin {
     private void addExtraSlots(PlayerInventory inventory, boolean onServer, PlayerEntity owner, CallbackInfo ci) {
         if (Pockets.extraInventoryRows <= 0) return;
 
-        int startY = 54 + (3 * 18); // After main inventory
-        int startIndex = 36; // Start after main inventory (0-35)
+        int startY = 84 + (3 * 18); // After main inventory
+        int startIndex = 43; // Start after main inventory (0-35)
 
         for (int row = 0; row < Pockets.extraInventoryRows; row++) {
             for (int col = 0; col < 9; col++) {
