@@ -1,6 +1,7 @@
 package net.gompk.pockets.mixin;
 
 import net.gompk.pockets.Pockets;
+import net.gompk.pockets.mixin.accessor.ScreenHandlerAccessor;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.PlayerScreenHandler;

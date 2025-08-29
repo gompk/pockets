@@ -1,4 +1,4 @@
-package net.gompk.pockets.mixin;
+package net.gompk.pockets.mixin.accessor;
 
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import org.spongepowered.asm.mixin.Mixin;

@@ -1,4 +1,4 @@
-package net.gompk.pockets.mixin;
+package net.gompk.pockets.mixin.accessor;
 
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;

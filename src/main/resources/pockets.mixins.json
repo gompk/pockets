@@ -3,18 +3,15 @@
   "package": "net.gompk.pockets.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "accessor.InventoryScreenAccessor",
+    "accessor.ScreenHandlerAccessor",
+    "accessor.SlotAccessorMixin",
+    "accessor.HandledScreenAccessor",
+    "PlayerScreenHandlerMixin",
     "PlayerInventoryMixin",
     "InventoryScreenMixin",
-    "InventoryScreenAccessor",
-    "ScreenHandlerAccessor",
-    "PlayerScreenHandlerMixin",
     "FixRecipeBookMixin",
-    "SlotAccessorMixin",
-    "HandledScreenAccessor",
-    "ArmorSlotProtectionMixin",
-    "ItemPickupDiagnosticMixin",
-    "InventoryInsertionBlockerMixin"
-    //"HotbarPositionFixMixin"
+    "SlotProtectionMixin"
   ],
   "injectors": {
     "defaultRequire": 1

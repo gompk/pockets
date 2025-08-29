@@ -1,7 +1,7 @@
 package net.gompk.pockets.mixin;
 
 import net.gompk.pockets.Pockets;
-import net.minecraft.client.gui.DrawContext;
+import net.gompk.pockets.mixin.accessor.InventoryScreenAccessor;
 import net.minecraft.client.gui.screen.ingame.InventoryScreen;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -16,7 +16,7 @@ public class InventoryScreenMixin {
         // Increase background height to accommodate extra row
         InventoryScreenAccessor accessor = (InventoryScreenAccessor) this;
         int originalHeight = accessor.getBackgroundHeight();
-        accessor.setBackgroundHeight(originalHeight + 18); // Add 18 pixels for one extra row
+        accessor.setBackgroundHeight(originalHeight + 35); // Add 18 pixels for one extra row
         Pockets.LOGGER.info("POCKETS DEBUG: InventoryScreen background height increased from {} to {}", originalHeight, accessor.getBackgroundHeight());
     }
 

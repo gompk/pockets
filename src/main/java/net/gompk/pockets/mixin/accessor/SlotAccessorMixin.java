@@ -1,5 +1,5 @@
 // SlotAccessor.java
-package net.gompk.pockets.mixin;
+package net.gompk.pockets.mixin.accessor;
 
 import net.minecraft.screen.slot.Slot;
 import org.spongepowered.asm.mixin.Mixin;

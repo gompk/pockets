@@ -1,5 +1,6 @@
 package net.gompk.pockets.mixin;
 
+import net.gompk.pockets.mixin.accessor.HandledScreenAccessor;
 import net.minecraft.client.gui.screen.ingame.InventoryScreen;
 import net.minecraft.client.gui.ScreenPos;
 import org.spongepowered.asm.mixin.Mixin;
